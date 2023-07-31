@@ -6958,7 +6958,6 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover
 
 .d-flex {
 	display: -ms-flexbox !important;
-	display: flex !important
 }
 
 .d-inline-flex {
@@ -7169,7 +7168,6 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover
 
 .flex-row {
 	-ms-flex-direction: row !important;
-	flex-direction: row !important
 }
 
 .flex-column {

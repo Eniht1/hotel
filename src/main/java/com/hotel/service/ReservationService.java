@@ -1,14 +1,15 @@
 package com.hotel.service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import com.hotel.dto.ReservationDto;
 import com.hotel.dto.ReservationHistDto;
@@ -33,6 +34,7 @@ public class ReservationService {
 	private final RoomRepository roomRepository;
 	private final MemberRepository memberRepository;
 	private final ReservationRepository reservationRepository;
+	private final RoomImgRepository roomImgRepository;
 	
 	//예약하기
 	public Long reservation(ReservationDto reservationDto, String email) {
@@ -57,26 +59,52 @@ public class ReservationService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<ReservationHistDto> getReservationList(String email, Pageable pageable) {
+	public List<ReservationHistDto> myReservationList(String email) {
+		Member member = memberRepository.findByEmail(email);
 		
-		List<Reservation> reservations = reservationRepository.findReservations(email, pageable);
+		List<Reservation> memberReservationList = reservationRepository.getMemberReservationList(member.getId());
+		List<ReservationHistDto> reservationHistDtoList = new ArrayList<>();
 		
-		Long totalCount = reservationRepository.countReservation(email);
-		
-		List<ReservationHistDto> reservationHistDtos = new ArrayList<>();
-		
-		for (Reservation reservation : reservations) {
+		for(Reservation reservation : memberReservationList) {
 			ReservationHistDto reservationHistDto = new ReservationHistDto(reservation);
-			List<ReservationRoom> reservationRooms = reservation.getReservationRooms();
+			List<ReservationRoom> reservationRoomList = reservation.getReservationRooms();
 			
-			for (ReservationRoom reservationRoom : reservationRooms) {
-				ReservationRoomDto reservationRoomDto = new ReservationRoomDto(reservationRoom, email);
+			for(ReservationRoom reservationRoom : reservationRoomList) {
+				RoomImg roomImg = roomImgRepository.findByRoomIdAndRepimgYn(reservationRoom.getRoom().getId(), "Y");
+				
+				ReservationRoomDto reservationRoomDto = new ReservationRoomDto(reservationRoom, roomImg.getImgUrl());
 				reservationHistDto.addReservationRoomDto(reservationRoomDto);
 			}
 			
-			reservationHistDtos.add(reservationHistDto);
+			reservationHistDtoList.add(reservationHistDto);
 		}
 		
-		return new PageImpl<>(reservationHistDtos, pageable, totalCount);
+		return reservationHistDtoList;
+	}
+	
+	public boolean validateReservation(Long reservationId, String email) {
+		Member curMember = memberRepository.findByEmail(email);
+		Reservation reservation = reservationRepository.findById(reservationId)
+													   .orElseThrow(EntityNotFoundException::new);
+		Member savedMember = reservation.getMember();
+		
+		if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	public void cancelReservation(Long reservationId) {
+		Reservation reservation = reservationRepository.findById(reservationId)
+													   .orElseThrow(EntityNotFoundException::new);
+		reservation.cancelReservation();
+	}
+	
+	public void deleteReservation(Long reservationId) {
+		Reservation reservation = reservationRepository.findById(reservationId)
+													   .orElseThrow(EntityNotFoundException::new);
+		reservationRepository.delete(reservation);
 	}
 }

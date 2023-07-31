@@ -50,4 +50,8 @@ public class ReservationRoom extends BaseEntity {
 		
 		return reservationRoom;
 	}
+	
+	public void cancel() {
+		this.getRoom();
+	}
 }

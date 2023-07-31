@@ -13,6 +13,8 @@ public class ReservationRoomDto {
 		this.roomName = reservationRoom.getRoom().getRoomName();
 		this.reservationPrice = reservationRoom.getReservationPrice();
 		this.imgUrl = imgUrl;
+		this.adult = reservationRoom.getAdult();
+		this.child = reservationRoom.getChild();
 	}
 	
 	private String roomName;
@@ -20,4 +22,8 @@ public class ReservationRoomDto {
 	private Integer reservationPrice;
 	
 	private String imgUrl;
+	
+	private Integer adult;
+	
+	private Integer child;
 }

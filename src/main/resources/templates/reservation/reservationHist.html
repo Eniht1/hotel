@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-md-12 mb-0">
 					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-						class="text-black">구매이력</strong>
+						class="text-black">예약내역</strong>
 				</div>
 			</div>
 		</div>
@@ -26,42 +26,34 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<h2 class="h3 mb-3 text-black">구매내역</h2>
-					<div th:each="reservation : ${reservations.getContent()}">
-						<div class="d-flex mb-3 align-self-center">
-							<th:block th:if="${#strings.equals(reservation.reservationStatus, 'reservation')}">
-								<h4 th:text="${reservation.reservationDate} + '주문'" style="font-size: 18px;"></h4>
-							</th:block>
-							<th:block th:unless="${#strings.equals(reservation.reservationStatus, 'reservation')}">
+					<h2 class="h3 mb-3 text-black" style="text-align: center;">예약내역</h2>
+					
+					<div th:each="reservation : ${reservations}">
+							<th:block th:unless="${#strings.equals(reservation.reservationStatus, 'RESERVATION')}">
 								<h4 style="font-size: 18px;">주문 취소완료</h4>
 							</th:block>
-						</div>
-						<div class="card d-flex flex-row">
-							<div th:each="reservationItem: ${reservation.reservationItemDtoList}" 
-							class="d-flex mb-3" style="width: 90%">
+						<div class="card d-flex flex-row" style="width: 70%; margin: 0 auto;">
+							<div th:each="reservationRoom: ${reservation.reservationRoomDtoList}" 
+							class="d-flex mb-3" style="width: 100%">
 								<div class="repImgDiv">
-									<img th:src="${reservationItem.imgUrl}"
-									     th:alt="${reservationItem.itemNm}"
+									<img th:src="${reservationRoom.imgUrl}"
+									     th:alt="${reservationRoom.roomName}"
 									     class="rounded repImg">
 								</div>
 								<div class="align-self-center w-75">
-									<span th:text="${reservationItem.itemNm}"
+									<span th:text="${reservationRoom.roomName}"
 									      class="font-weight-bold"
-										  style="font-size: 18px; color: black;"></span>
-									<div class="fs18 font-weight-light">
-										<span th:text="${#numbers.formatInteger(reservationItem.reservationPrice, 0, 'COMMA')}+'원'"></span> / 
-										<span th:text="${reservationItem.count} + '개'"></span>
-									</div>
+										  style="font-size: 24px; color: black;"></span>
+									<span th:text="'성인:' + ${reservation.adult} + '명'"></span>
+									<span th:text="'어린이:' + ${reservation.child} + '명'"></span>
 								</div>
 							</div>
 							<div>
-								<th:block th:if="${#strings.equals(reservation.reservationStatus, 'reservation')}">
+								<th:block th:if="${#strings.equals(reservation.reservationStatus, 'RESERVATION')}">
 									<button type="button" class="btn btn-outline-secondary"
-									 th:value="${reservation.reservationId}" onclick="cancelReservation(this.value)">
-										주문취소
-									</button>
+									 th:value="${reservation.reservationId}" onclick="cancelReservation(this.value)">주문취소</button>
 								</th:block>
-								<th:block th:unless="${#strings.equals(reservation.reservationStatus, 'reservation')}">
+								<th:block th:unless="${#strings.equals(reservation.reservationStatus, 'RESERVATION')}">
 									<p>
 										<button type="button" class="btn btn-primary"
 										 th:value="${reservation.reservationId}" onclick="deleteReservation(this.value)">삭제하기</button>
@@ -69,34 +61,6 @@
 								</th:block>
 							</div>
 						</div>
-					</div>
-					<div>
-					 <nav
-					  th:with="start=${(reservations.number/maxPage)*maxPage + 1}
-			                 ,end=(${(reservations.totalPages == 0) ? 1 : (start + (maxPage - 1) < reservations.totalPages ? start + (maxPage - 1) : reservations.totalPages)})"
-							aria-label="Page navigation example">
-							<ul class="pagination d-flex justify-content-center">
-							
-								<li class="page-item" th:classappend="${reservations.first}?'disabled'">
-									<a class="page-link"
-									th:href="@{'/reservations/' + ${reservations.number - 1}}">이전</a>
-								</li>
-								
-								<li class="page-item"
-									th:each="page: ${#numbers.sequence(start, end)}"
-									th:classappend="${reservations.number eq page-1}?'active':''">
-									<a
-									class="page-link" th:inline="text"
-									th:href="@{'/reservations/' + ${page - 1}}">[[${page}]]</a>
-								</li>
-								
-								<li class="page-item" th:classappend="${reservations.last}?'disabled'">
-									<a class="page-link"
-									th:href="@{'/reservations/' + ${reservations.number + 1}}">다음</a>
-								</li>
-								
-							</ul>
-						</nav>
 					</div>
 				</div>
 				<div class="col-md-2"></div>
@@ -107,7 +71,7 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		function cancelReservation(reservaionId) {
+		function cancelReservation(reservationId) {
 			const cancelConf = confirm("주문 취소하시겠습니까?");
 			if(!cancelConf) return; //취소버튼 누르면
 			
@@ -115,11 +79,11 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
 			//request URL
-			var url = "/order/" + orderId + "/cancel";
+			var url = "/reservation/" + reservationId + "/cancel";
 			
 			//서버로 보내줄 데이터(반드시 JSON -> string 타입으로 바꿔줘야한다)
 			var paramData = {
-					reservaionId: reservaionId	
+					reservationId: reservationId	
 			};
 			var param = JSON.stringify(paramData);
 			
@@ -138,12 +102,12 @@
 					var path = location.pathname;
 					var page = path.substring(path.lastIndexOf("/") + 1);
 					
-					if(page == 'orders') {
+					if(page == 'reservations') {
 						page = 0;
 					} 
 					
 					//주문취소 후에 원래 페이지로 이동시켜준다.
-					location.href = '/orders/' + page;
+					location.href = '/reservations/' + page;
 				},
 				error : function(jqXHR, status, error) {
 					if(jqXHR.status == '401') {
@@ -157,7 +121,7 @@
 		}
 		
 		
-		function deleteReservaion(reservaionId) {
+		function deleteReservation(reservationId) {
 			const deleteConf = confirm("삭제하시겠습니까?");
 			if(!deleteConf) return; //취소버튼 누르면
 			
@@ -165,7 +129,7 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
 			//request URL
-			var url = "/reservaion/" + reservaionId + "/delete";
+			var url = "/reservation/" + reservationId + "/delete";
 			
 			
 			$.ajax({
@@ -179,7 +143,7 @@
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-					location.href = '/reservaions';
+					location.href = '/';
 				},
 				error : function(jqXHR, status, error) {
 					if(jqXHR.status == '401') {

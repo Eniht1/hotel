@@ -3,6 +3,7 @@ package com.hotel.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hotel.constant.ReservationStatus;
 import com.hotel.entity.Reservation;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,17 +13,23 @@ import lombok.Setter;
 public class ReservationHistDto {
 	
 	public ReservationHistDto(Reservation reservation) {
+		this.adult = reservation.getAdult();
+		this.child = reservation.getChild();
+		this.reservationStatus = reservation.getReservationStatus();
+		this.reservationId = reservation.getId();
 	}
 	
 	private Long reservationId;
 	
-	private String adult;
+	private Integer adult;
 	
-	private String child;
+	private Integer child;
 	
 	private String checkIn;
 	
 	private String checkOut;
+	
+	private ReservationStatus reservationStatus;
 	
 	private List<ReservationRoomDto> reservationRoomDtoList = new ArrayList<>();
 	

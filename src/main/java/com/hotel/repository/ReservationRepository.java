@@ -1,6 +1,5 @@
 package com.hotel.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,9 +10,7 @@ import com.hotel.entity.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-	@Query
-	List<Reservation> findReservations(@Param("email") String email, Pageable pageable);
+	@Query("select r from Reservation r where r.member.id = :member_id")
+	List<Reservation> getMemberReservationList(@Param("member_id") Long memberId);
 	
-	@Query
-	Long countReservation(@Param("email") String email);
 }

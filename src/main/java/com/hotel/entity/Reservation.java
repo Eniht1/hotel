@@ -3,14 +3,15 @@ package com.hotel.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aspectj.weaver.tools.Trace;
-
+import com.hotel.constant.ReservationStatus;
 import com.hotel.dto.ReservationDto;
 
 import groovy.transform.ToString;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,6 +43,9 @@ public class Reservation extends BaseEntity {
 	
 	private String checkOut;
 	
+	@Enumerated(EnumType.STRING)
+	private ReservationStatus reservationStatus;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
@@ -67,7 +71,12 @@ public class Reservation extends BaseEntity {
 		reservation.setChild(reservationDto.getChild());
 		reservation.setCheckIn(reservationDto.getCheckIn());
 		reservation.setCheckOut(reservationDto.getCheckOut());
+		reservation.setReservationStatus(ReservationStatus.RESERVATION);
 		
 		return reservation;
+	}
+	
+	public void cancelReservation() {
+		this.reservationStatus = ReservationStatus.CANCEL;
 	}
 }
