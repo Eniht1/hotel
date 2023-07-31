@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<div layout:fragment="content">
+	<div class="breadcrumb-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb-text">
+						<h2>방 관리</h2>
+						<div class="bt-option"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="rooms-section spad">
+		<div class="container">
+			<div class="row">
+				<th:block th:each="room, status: ${rooms.getContent()}">
+					<div class="col-lg-4 col-md-6">
+						<div class="room-item">
+							<div>
+								<img th:src="${room.imgUrl}" th:alt="${room.roomName}">
+							</div>
+							<div class="ri-text">
+								<h4>[[${room.roomName}]]</h4>
+								<h3>[[${#numbers.formatInteger(room.price, 0, 'COMMA')}]]원
+								</h3>
+								<table>
+									<tbody>
+										<tr>
+											<td class="r-o">객실 타입:</td>
+											<td>[[${room.roomType}]]</td>
+										</tr>
+										<tr>
+											<td class="r-o">기준 인원:</td>
+											<td>[[${room.maxPerson}]]</td>
+										</tr>
+										<tr>
+											<td class="r-o">설명:</td>
+											<td>[[${room.description}]]</td>
+										</tr>
+									</tbody>
+								</table>
+								<a th:href="'/admin/room/' + ${room.id}" class="primary-btn">수정하기</a>
+								<a class="primary-btn" th:value="${room.id}" th:onclick="deleteOrder([[${room.id}]])">삭제하기</a>
+							</div>
+						</div>
+					</div>
+				</th:block>
+				<div class="col-lg-12 room-pagination">
+					<nav
+						th:with="start=${(rooms.number/maxPage)*maxPage + 1}
+			                 ,end=(${(rooms.totalPages == 0) ? 1 : (start + (maxPage - 1) < rooms.totalPages ? start + (maxPage - 1) : rooms.totalPages)})"
+						aria-label="Page navigation example">
+						<ul class="pagination d-flex justify-content-center">
+							<li class="page-item" th:classappend="${rooms.first}?'disabled'">
+								<a class="page-link"
+								th:onclick="'javascript:page(' + ${rooms.number - 1} +')'">이전</a>
+							</li>
+							<li class="page-item"
+								th:each="page: ${#numbers.sequence(start, end)}"
+								th:classappend="${rooms.number eq page-1}?'active':''"><a
+								class="page-link" th:inline="text"
+								th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
+							</li>
+							<li class="page-item" th:classappend="${rooms.last}?'disabled'">
+								<a class="page-link"
+								th:onclick="'javascript:page(' + ${rooms.number + 1} +')'">다음</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function() {
+
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); //submit되는걸 방지
+				page(0);
+			});
+
+		});
+
+		//페이징버튼 눌렀을때 혹은 검색버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소이동시켜준다.
+		function page(page) {
+			location.href = "/admin/rooms/" + page;
+		}
+	</script>
+	<script th:inline="javascript">
+	
+		function deleteOrder(roomId) {
+			const deleteConf = confirm("삭제하시겠습니까?");
+			if(!deleteConf) return; //취소버튼 누르면
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			//request URL
+			var url = "/admin/" + roomId + "/delete";
+			
+			
+			$.ajax({
+				url : url, //request URL
+				type : "DELETE", //전송방식
+				contentType : "application/json",
+				beforeSend : function(xhr) {
+					//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					location.href = '/';
+				},
+				error : function(jqXHR, status, error) {
+					if(jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseText);
+					}
+				}
+			});
+		}
+	</script>
+</th:block>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<div layout:fragment="content">
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <h2>방 정보</h2>
+                        <div class="bt-option">
+                            <a href="/">메인메뉴</a>
+                            <span>방</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="room-details-section spad">
+        <div class="container">
+            <div class="row">
+              <th:block th:each="room, status: ${room}">
+                <div class="col-lg-8">
+                    <div class="room-details-item">
+                        	<div>
+								<img th:src="${room.roomImgDtoList[0].imgUrl}" th:alt="${room.roomName}">
+							</div>
+                        <div class="rd-text">
+                            <div class="rd-title">
+                                <h3>[[${room.roomName}]]</h3>
+                                <div class="rdt-right">
+                                    <div class="rating">
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star-half_alt"></i>
+                                    </div>
+                                    <a href="#">Booking Now</a>
+                                </div>
+                            </div>
+                            <h2>[[${#numbers.formatInteger(room.price, 0, 'COMMA')}]]원</h2>
+                            <table>
+                                <tbody>
+										<tr>
+											<td class="r-o">객실 타입:</td>
+											<td>[[${room.roomType}]]</td>
+										</tr>
+										<tr>
+											<td class="r-o">기준 인원:</td>
+											<td>[[${room.maxPerson}]]</td>
+										</tr>
+										<tr>
+											<td class="r-o">설명:</td>
+											<td>[[${room.description}]]</td>
+										</tr>
+                                </tbody>
+                            </table>
+                            <p class="f-para">Motorhome or Trailer that is the question for you. Here are some of the
+                                advantages and disadvantages of both, so you will be confident when purchasing an RV.
+                                When comparing Rvs, a motorhome or a travel trailer, should you buy a motorhome or fifth
+                                wheeler? The advantages and disadvantages of both are studied so that you can make your
+                                choice wisely when purchasing an RV. Possessing a motorhome or fifth wheel is an
+                                achievement of a lifetime. It can be similar to sojourning with your residence as you
+                                search the various sites of our great land, America.</p>
+                            <p>The two commonly known recreational vehicle classes are the motorized and towable.
+                                Towable rvs are the travel trailers and the fifth wheel. The rv travel trailer or fifth
+                                wheel has the attraction of getting towed by a pickup or a car, thus giving the
+                                adaptability of possessing transportation for you when you are parked at your campsite.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="room-booking">
+                        <h3>Your Reservation</h3>
+                        <form role="form" action="/reservation" method="post" enctype="multipart/form-data" 
+							th:object="${reservationDto}" name="reservationDto">
+                        <input type="hidden" th:value="${room.id}" name="roomId">
+                            <div class="check-date">
+                                <label for="date-in">Check In:</label>
+                                <input type="text" class="date-input" id="date-in" th:field="*{checkIn}">
+                                <i class="icon_calendar"></i>
+                            </div>
+                            <div class="check-date">
+                                <label for="date-out">Check Out:</label>
+                                <input type="text" class="date-input" id="date-out" th:field="*{checkOut}">
+                                <i class="icon_calendar"></i>
+                            </div>
+                            <div class="select-option">
+                                <label for="guest">성인:</label>
+									<select class="form-select" th:field="*{adult}">
+										<option value="1">1명</option>
+										<option value="2">2명</option>
+										<option value="3">3명</option>
+										<option value="4">4명</option>
+									</select>
+                            </div>
+                            <div class="select-option">
+                         	   <label for="guest">어린이:</label>
+									<select class="form-select" th:field="*{child}">
+										<option value="1">1명</option>
+										<option value="2">2명</option>
+										<option value="3">3명</option>
+										<option value="4">4명</option>
+									</select>
+                            </div>
+                            <button type="submit">Check Availability</button>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        </form>
+                    </div>
+                </div>
+              </th:block>
+            </div>
+        </div>
+    </section>
+</div>    
+</html>

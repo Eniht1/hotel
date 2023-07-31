@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<th:block layout:fragment="css">
+	<style>
+	 .error {
+	 	color: #bd2130;
+	 }
+	</style>
+</th:block>
+<div layout:fragment="content">
+    <section class="contact-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 offset-lg-1">
+                    <form action="/members/login" method="post" class="contact-form">
+                        <div class="row">
+                            <div class="col-lg-12">
+                            <label th:for="email" class="text-black">이메일</label>
+                                <input type="email" class="form-control" id="email" name="email"
+									placeholder="이메일을 입력해주세요">
+                            </div>
+                            <div class="col-lg-12">
+                            <label th:for="password" class="text-black">비밀번호</label>
+                                <input type="password" class="form-control" id="password"
+									name="password" placeholder="비밀번호를 입력해주세요">
+                            </div>
+                            
+                            <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}" ></p>
+							<label style="width: 682.5px; margin-left: 17px	"><input type="checkbox" name="id_save" id="id_save" style="width: 15px; height: 15px;" />이메일 기억</label>
+                            <div class="col-lg-12">
+                                <button type="submit">로그인</button>
+                                <button type="button" onclick="location.href='/members/new'">회원가입</button>
+                            </div>
+                        </div>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+	<script th:inline="javascript">
+		$(document).ready(function(){
+			var userInputId = getCookie("userInputId"); //쿠키값(이메일주소)을 가져온다.
+			var setCookieYN = getCookie("setCookieYN"); //쿠키값(이메일 저장 여부)을 가져온다.
+			
+			if(setCookieYN == 'Y') { //이메일 저장 여부가 Y면
+				$("#id_save").prop("checked", true); //이메일 저장 체크박스를 체크한다
+				$("#email").val(userInputId); //이메일 input창에는 쿠키에서 가져온 이메일 주소를 넣는다.
+			} else {
+				$("#id_save").prop("checked", false);
+			}
+			
+			
+			//로그인 버튼 클릭시 쿠키에 이메일 저장여부, 이메일 저장
+			$("#loginbtn").click(function(){
+				
+				if($("#id_save").is(":checked")) { //이메일 저장에 체크가 되어있다면
+					var userInputId = $("#email").val(); //이메일 값을 가지고 온다.
+					
+					//쿠키 생성
+					setCookie("userInputId", userInputId, 60); //이메일 저장
+					setCookie("setCookieYN", "Y", 60); //이메일 저장여부 저장
+				} else {
+					//쿠키 삭제
+					deleteCookie("userInputId");
+					deleteCookie("setCookieYN");
+				}
+				
+			});
+		});
+	</script>
+</th:block>
+</html>

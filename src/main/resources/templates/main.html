@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<div layout:fragment="content">
+	<section class="hero-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="hero-text">
+						<h1>호텔</h1>
+						<p>Here are the best hotel booking sites, including
+							recommendations for international travel and for finding
+							low-priced hotel rooms.</p>
+						<a href="#" class="primary-btn">Discover Now</a>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
+					<div class="booking-form">
+						<h3>객실 예약하기</h3>
+						<form action="#">
+							<div class="check-date">
+								<label for="date-in">체크인:</label> <input type="text"
+									class="date-input" id="date-in"> <i
+									class="icon_calendar"></i>
+							</div>
+							<div class="check-date">
+								<label for="date-out">체크아웃:</label> <input type="text"
+									class="date-input" id="date-out"> <i
+									class="icon_calendar"></i>
+							</div>
+							<div class="select-option">
+								<label for="guest">게스트:</label> <select id="guest">
+									<option value="">성인 2</option>
+									<option value="">성인 3</option>
+								</select>
+							</div>
+							<div>
+								<div class="select-option">
+									<label for="room">룸:</label> <select id="room">
+										<option value="">룸 1개</option>
+										<option value="">룸 2게</option>
+									</select>
+								</div>
+							</div>
+							<button type="submit">예약 가능여부 확인하기</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hero-slider owl-carousel">
+			<div class="hs-item set-bg" data-setbg="img/hero/hero-1.jpg"></div>
+			<div class="hs-item set-bg" data-setbg="img/hero/hero-2.jpg"></div>
+			<div class="hs-item set-bg" data-setbg="img/hero/hero-3.jpg"></div>
+		</div>
+	</section>
+	<!-- Hero Section End -->
+
+	<!-- Services Section End -->
+	<section class="services-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<span>우리가 하는 일</span>
+						<h2>서비스 정보</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-sm-6">
+					<div class="service-item">
+						<i class="flaticon-036-parking"></i>
+						<h4>여행 계획</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-6">
+					<div class="service-item">
+						<i class="flaticon-033-dinner"></i>
+						<h4>룸서비스</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-6">
+					<div class="service-item">
+						<i class="flaticon-026-bed"></i>
+						<h4>베이비시팅 서비스</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-6">
+					<div class="service-item">
+						<i class="flaticon-024-towel"></i>
+						<h4>세탁 서비스</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-6">
+					<div class="service-item">
+						<i class="flaticon-044-clock-1"></i>
+						<h4>24시간 교통 지원</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-6">
+					<div class="service-item">
+						<i class="flaticon-012-cocktail"></i>
+						<h4>바 & 드링크</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Services Section End -->
+
+	<!-- Home Room Section Begin -->
+	<section class="hp-room-section">
+		<div class="container-fluid">
+			<div class="hp-room-items">
+				<div class="row">
+					<div class="col-lg-3 col-md-6">
+						<div class="hp-room-item set-bg" data-setbg="img/room/room-b1.jpg">
+							<div class="hr-text">
+								<h3>디럭스 룸</h3>
+								<h2>
+									200,000 KRW<span> / 1박</span>
+								</h2>
+								<table>
+									<tbody>
+										<tr>
+											<td class="r-o">면적:</td>
+											<td>40 ㎡</td>
+										</tr>
+										<tr>
+											<td class="r-o">허용가능:</td>
+											<td>최대 5명</td>
+										</tr>
+										<tr>
+											<td class="r-o">Bed:</td>
+											<td>싱글 베드</td>
+										</tr>
+										<tr>
+											<td class="r-o">서비스:</td>
+											<td>와이파이, TV, 욕실,...</td>
+										</tr>
+									</tbody>
+								</table>
+								<a href="#" class="primary-btn">상세보기</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="hp-room-item set-bg" data-setbg="img/room/room-b2.jpg">
+							<div class="hr-text">
+								<h3>디럭스 더블룸</h3>
+								<h2>
+									250,000 KRW<span> / 1박</span>
+								</h2>
+								<table>
+									<tbody>
+										<tr>
+											<td class="r-o">면적:</td>
+											<td>40 ㎡</td>
+										</tr>
+										<tr>
+											<td class="r-o">허용가능:</td>
+											<td>최대 5명</td>
+										</tr>
+										<tr>
+											<td class="r-o">침대:</td>
+											<td>더블 베드</td>
+										</tr>
+										<tr>
+											<td class="r-o">서비스:</td>
+											<td>와이파이, TV, 욕실,...</td>
+										</tr>
+									</tbody>
+								</table>
+								<a href="#" class="primary-btn">상세보기</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="hp-room-item set-bg" data-setbg="img/room/room-b3.jpg">
+							<div class="hr-text">
+								<h3>프리미어 룸</h3>
+								<h2>
+									300,000 KRW<span> / 1박</span>
+								</h2>
+								<table>
+									<tbody>
+										<tr>
+											<td class="r-o">면적:</td>
+											<td>50 ㎡</td>
+										</tr>
+										<tr>
+											<td class="r-o">면적:</td>
+											<td>최대 5명</td>
+										</tr>
+										<tr>
+											<td class="r-o">침대:</td>
+											<td>슈퍼싱글 베드</td>
+										</tr>
+										<tr>
+											<td class="r-o">서비스:</td>
+											<td>와이파이, TV, 욕실,...</td>
+										</tr>
+									</tbody>
+								</table>
+								<a href="#" class="primary-btn">상세보기</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="hp-room-item set-bg" data-setbg="img/room/room-b4.jpg">
+							<div class="hr-text">
+								<h3>프리미어 더블룸</h3>
+								<h2>
+									350,000 KRW<span> / 1박</span>
+								</h2>
+								<table>
+									<tbody>
+										<tr>
+											<td class="r-o">면적:</td>
+											<td>50 ㎡</td>
+										</tr>
+										<tr>
+											<td class="r-o">면적:</td>
+											<td>최대 5명</td>
+										</tr>
+										<tr>
+											<td class="r-o">침대:</td>
+											<td>슈퍼더블 베드</td>
+										</tr>
+										<tr>
+											<td class="r-o">서비스:</td>
+											<td>와이파이, TV, 욕실,...</td>
+										</tr>
+									</tbody>
+								</table>
+								<a href="#" class="primary-btn">상세보기;</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Home Room Section End -->
+
+	<!-- Testimonial Section Begin -->
+	<section class="testimonial-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<span>후기</span>
+						<h2>생생한 후기를 만나보세요!</h2>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8 offset-lg-2">
+				<div class="testimonial-slider owl-carousel">
+					<div class="ts-item">
+						<p>After a construction project took longer than expected, my
+							husband, my daughter and I needed a place to stay for a few
+							nights. As a Chicago resident, we know a lot about our city,
+							neighborhood and the types of housing options available and
+							absolutely love our vacation at Sona Hotel.</p>
+						<div class="ti-author">
+							<div class="rating">
+								<i class="icon_star"></i> <i class="icon_star"></i> <i
+									class="icon_star"></i> <i class="icon_star"></i> <i
+									class="icon_star-half_alt"></i>
+							</div>
+							<h5>- Alexander Vasquez</h5>
+						</div>
+						<img src="img/testimonial-logo.png" alt="">
+					</div>
+					<div class="ts-item">
+						<p>After a construction project took longer than expected, my
+							husband, my daughter and I needed a place to stay for a few
+							nights. As a Chicago resident, we know a lot about our city,
+							neighborhood and the types of housing options available and
+							absolutely love our vacation at Sona Hotel.</p>
+						<div class="ti-author">
+							<div class="rating">
+								<i class="icon_star"></i> <i class="icon_star"></i> <i
+									class="icon_star"></i> <i class="icon_star"></i> <i
+									class="icon_star-half_alt"></i>
+							</div>
+							<h5>- Alexander Vasquez</h5>
+						</div>
+						<img src="img/testimonial-logo.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Testimonial Section End -->
+
+	<!-- Blog Section Begin -->
+	<section class="blog-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<span>호텔 소식</span>
+						<h2>객실 프로모션 & 이벤트</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="blog-item set-bg" data-setbg="img/blog/blog-1.jpg">
+						<div class="bi-text">
+							<span class="b-tag">Travel Trip</span>
+							<h4>
+								<a href="#">Tremblant In Canada</a>
+							</h4>
+							<div class="b-time">
+								<i class="icon_clock_alt"></i> 15th April, 2019
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="blog-item set-bg" data-setbg="img/blog/blog-2.jpg">
+						<div class="bi-text">
+							<span class="b-tag">Camping</span>
+							<h4>
+								<a href="#">Choosing A Static Caravan</a>
+							</h4>
+							<div class="b-time">
+								<i class="icon_clock_alt"></i> 15th April, 2019
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="blog-item set-bg" data-setbg="img/blog/blog-3.jpg">
+						<div class="bi-text">
+							<span class="b-tag">Event</span>
+							<h4>
+								<a href="#">Copper Canyon</a>
+							</h4>
+							<div class="b-time">
+								<i class="icon_clock_alt"></i> 21th April, 2019
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="blog-item small-size set-bg"
+						data-setbg="img/blog/blog-wide.jpg">
+						<div class="bi-text">
+							<span class="b-tag">Event</span>
+							<h4>
+								<a href="#">Trip To Iqaluit In Nunavut A Canadian Arctic
+									City</a>
+							</h4>
+							<div class="b-time">
+								<i class="icon_clock_alt"></i> 08th April, 2019
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="blog-item small-size set-bg"
+						data-setbg="img/blog/blog-10.jpg">
+						<div class="bi-text">
+							<span class="b-tag">Travel</span>
+							<h4>
+								<a href="#">Traveling To Barcelona</a>
+							</h4>
+							<div class="b-time">
+								<i class="icon_clock_alt"></i> 12th April, 2019
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<th:block layout:fragment="script">
+
+	<script th:inline="javascript">
+		
+	</script>
+</th:block>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<header class="header-section" th:fragment="header">
+	<div class="top-nav">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<ul class="tn-left">
+						<li><i class="fa fa-phone"></i> (032) 123 4567</li>
+						<li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<div class="tn-right">
+						<div class="top-social">
+							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+								class="fa fa-twitter"></i></a> <a href="#"><i
+								class="fa fa-tripadvisor"></i></a> <a href="#"><i
+								class="fa fa-instagram"></i></a>
+						</div>
+						<a href="#" class="bk-btn">즉시 예약</a>
+						<div class="language-option">
+							<img src="/img/flag.jpg" alt=""> <span>Kr <i
+								class="fa fa-angle-down"></i></span>
+							<div class="flag-dropdown">
+								<ul>
+									<li><a href="#">En</a></li>
+									<li><a href="#">Jp</a></li>
+									<li><a href="#">Cn</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="menu-item">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="logo">
+						<a href="/"> <img src="img/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-10">
+					<div class="nav-menu">
+						<nav class="mainmenu">
+							<ul>
+								<li class="has-children active"
+									sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+									<a>관리자 메뉴</a>
+									<ul class="dropdown">
+										<li><a href="/admin/room/new">방 등록</a></li>
+										<li><a href="/admin/rooms">방 관리</a></li>
+									</ul>
+								</li>
+								<li class="active"><a href="/">메인메뉴</a></li>
+								<li><a href="/rooms">방</a>
+									<ul class="dropdown">
+										<li><a href="/rooms/detail/52">디럭스 룸</a></li>
+										<li><a href="/rooms/detail/53">디럭스 트윈룸</a></li>
+										<li><a href="/rooms/detail/54">프리미어 룸</a></li>
+										<li><a href="/rooms/detail/55">프리미어 트윈룸</a></li>
+									</ul></li>
+								<li sec:authorize="hasAnyAuthority('ROLE_USER')"><a href="/reservations">예약정보</a></li>
+								<li><a href="/members/login" sec:authorize="isAnonymous()">로그인</a></li>
+								<li><a href="/members/logout"
+									sec:authorize="isAuthenticated()">로그아웃</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+</html>
