@@ -31,20 +31,23 @@
 									class="icon_calendar"></i>
 							</div>
 							<div class="select-option">
-								<label for="guest">게스트:</label> <select id="guest">
-									<option value="">성인 2</option>
-									<option value="">성인 3</option>
+								<label for="guest">성인:</label> <select id="guest">
+										<option value="1">1명</option>
+										<option value="2">2명</option>
+										<option value="3">3명</option>
+										<option value="4">4명</option>
 								</select>
 							</div>
 							<div>
 								<div class="select-option">
-									<label for="room">룸:</label> <select id="room">
-										<option value="">룸 1개</option>
-										<option value="">룸 2게</option>
+									<label for="room">어린이:</label> <select id="room">
+										<option value="0">0명</option>
+										<option value="1">1명</option>
+										<option value="2">2명</option>
 									</select>
 								</div>
 							</div>
-							<button type="submit">예약 가능여부 확인하기</button>
+							<button type="button" onclick="location.href='/rooms'">예약 가능여부 확인하기</button>
 						</form>
 					</div>
 				</div>

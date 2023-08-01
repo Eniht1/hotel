@@ -13,8 +13,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 mb-0">
-					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-						class="text-black">예약내역</strong>
+					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> 
+					<strong class="text-black">예약 정보</strong>
 				</div>
 			</div>
 		</div>
@@ -26,13 +26,12 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<h2 class="h3 mb-3 text-black" style="text-align: center;">예약내역</h2>
 					
 					<div th:each="reservation : ${reservations}">
 							<th:block th:unless="${#strings.equals(reservation.reservationStatus, 'RESERVATION')}">
-								<h4 style="font-size: 18px;">주문 취소완료</h4>
+								<h4 style="font-size: 18px;">예약 취소완료</h4>
 							</th:block>
-						<div class="card d-flex flex-row" style="width: 70%; margin: 0 auto;">
+						<div class="card d-flex flex-row" style="width: 70%; margin: 20px auto;">
 							<div th:each="reservationRoom: ${reservation.reservationRoomDtoList}" 
 							class="d-flex mb-3" style="width: 100%">
 								<div class="repImgDiv">
@@ -46,12 +45,15 @@
 										  style="font-size: 24px; color: black;"></span>
 									<span th:text="'성인:' + ${reservation.adult} + '명'"></span>
 									<span th:text="'어린이:' + ${reservation.child} + '명'"></span>
+									<hr>
+									<span th:text="'체크인:' + ${reservation.checkIn}"></span>
+									<span th:text="'체크아웃:' + ${reservation.checkOut}"></span>
 								</div>
 							</div>
 							<div>
 								<th:block th:if="${#strings.equals(reservation.reservationStatus, 'RESERVATION')}">
 									<button type="button" class="btn btn-outline-secondary"
-									 th:value="${reservation.reservationId}" onclick="cancelReservation(this.value)">주문취소</button>
+									 th:value="${reservation.reservationId}" onclick="cancelReservation(this.value)">예약취소</button>
 								</th:block>
 								<th:block th:unless="${#strings.equals(reservation.reservationStatus, 'RESERVATION')}">
 									<p>
@@ -72,7 +74,7 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		function cancelReservation(reservationId) {
-			const cancelConf = confirm("주문 취소하시겠습니까?");
+			const cancelConf = confirm("예약 취소하시겠습니까?");
 			if(!cancelConf) return; //취소버튼 누르면
 			
 			var token = $("meta[name='_csrf']").attr("content");

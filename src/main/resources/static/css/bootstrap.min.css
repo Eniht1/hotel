@@ -150,7 +150,7 @@ sup {
 }
 
 a {
-	color: #007bff;
+	color: #dfa974;
 	text-decoration: none;
 	background-color: transparent
 }
@@ -6777,7 +6777,6 @@ a.bg-danger:focus, a.bg-danger:hover, button.bg-danger:focus, button.bg-danger:h
 }
 
 .bg-light {
-	background-color: #f8f9fa !important
 }
 
 a.bg-light:focus, a.bg-light:hover, button.bg-light:focus, button.bg-light:hover
@@ -9678,7 +9677,6 @@ supports ((position:-webkit-sticky) or (position:sticky)) { .
 }
 
 .font-weight-bold {
-	font-weight: 700 !important
 }
 
 .font-weight-bolder {

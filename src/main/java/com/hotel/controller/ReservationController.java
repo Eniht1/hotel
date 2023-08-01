@@ -45,7 +45,6 @@ public class ReservationController {
 				sb.append(fieldError.getDefaultMessage());
 			}
 		}
-		
 		String email = principal.getName();
 		Long reservationId;
 

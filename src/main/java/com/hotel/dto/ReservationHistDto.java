@@ -17,6 +17,8 @@ public class ReservationHistDto {
 		this.child = reservation.getChild();
 		this.reservationStatus = reservation.getReservationStatus();
 		this.reservationId = reservation.getId();
+		this.checkIn = reservation.getCheckIn();
+		this.checkOut = reservation.getCheckOut();
 	}
 	
 	private Long reservationId;
