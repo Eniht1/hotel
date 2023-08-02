@@ -1,12 +1,16 @@
 package com.hotel.controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hotel.dto.ReservationDto;
 import com.hotel.dto.ReservationHistDto;
+import com.hotel.entity.Reservation;
 import com.hotel.service.ReservationService;
 
 import jakarta.validation.Valid;
@@ -47,6 +52,16 @@ public class ReservationController {
 		}
 		String email = principal.getName();
 		Long reservationId;
+		
+		DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("MM월 dd일");
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy", Locale.ENGLISH);
+		LocalDate startDate = LocalDate.parse(reservationDto.getCheckIn(), formatter); 
+		LocalDate endDate = LocalDate.parse(reservationDto.getCheckOut(), formatter);
+		String newFormattedEndDate = endDate.format(newFormatter);
+		String newFormattedStartDate = startDate.format(newFormatter);
+		reservationDto.setCheckIn(newFormattedStartDate);
+		reservationDto.setCheckOut(newFormattedStartDate);
 
 		System.out.println(email);
 		try {
@@ -89,5 +104,6 @@ public class ReservationController {
 		reservationService.deleteReservation(reservationId);
 		return new ResponseEntity<Long>(reservationId, HttpStatus.OK);
 	}
+	
 
 }
