@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hotel.dto.MemberFormDto;
 import com.hotel.entity.Member;
 import com.hotel.repository.MemberRepository;
 
@@ -52,6 +53,11 @@ public class MemberService implements UserDetailsService {
 				.build();
 	}
 	
+	public Member member(String email) {
+		Member member = memberRepository.findByEmail(email);
+		
+		return member;
+	}
 }
 
 

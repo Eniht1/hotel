@@ -104,16 +104,13 @@ public class RoomService {
 	
 	//주문 삭제
 	public void deleteRoom(Long roomId) {
-		System.out.println("11111111111111");
 		//★delete하기 전에 select 를 한번 해준다
 		//->영속성 컨텍스트에 엔티티를 저장한 후 변경 감지를 하도록 하기 위해
 		Room room = roomRepository.findById(roomId)
                 .orElseThrow(EntityNotFoundException::new);
-		System.out.println("22222222222222222");
 
 		//delete
 		roomRepository.delete(room);
-		System.out.println("33333333333333333333");
 	}
 	
 	@Transactional(readOnly = true)

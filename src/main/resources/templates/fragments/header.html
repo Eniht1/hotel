@@ -68,8 +68,8 @@
 									</ul></li>
 								<li sec:authorize="hasAnyAuthority('ROLE_USER')"><a href="/reservations">예약 정보</a></li>
 								<li><a href="/members/login" sec:authorize="isAnonymous()">로그인</a></li>
-								<li><a href="/members/logout"
-									sec:authorize="isAuthenticated()">로그아웃</a></li>
+								<li><a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
+								<li><a href="/members/info" sec:authorize="isAuthenticated()">마이페이지</a></li>
 							</ul>
 						</nav>
 					</div>

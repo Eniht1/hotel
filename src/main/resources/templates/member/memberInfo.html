@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<div layout:fragment="content">
+	<div class="bg-light py-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 mb-0">
+					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
+						class="text-black">마이페이지</strong>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="contact-section spad">
+		<div class="container">
+			<div class="row">
+              <th:block th:each="member, status: ${member}">
+					<div class="col-lg-8" style="border: 1px solid; border-radius: 5px; border-color: #dfa974;">
+						<div class="room-details-item">
+							<div class="rd-text" style="margin-top: 50px; margin-left: 30px">
+								<div class="rd-title">
+									<h3>[[${member.name}]]</h3>
+								</div>
+								<table>
+									<tbody>
+										<tr>
+											<td class="r-o">이메일:</td>
+											<td>[[${member.email}]]</td>
+										</tr>
+										<tr>
+											<td class="r-o">주소:</td>
+											<td>[[${member.address}]]</td>
+										</tr>
+										<tr>
+											<td class="r-o">사용자:</td>
+											<td>[[${member.role}]]</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</th:block>
+			</div>
+		</div>
+	</section>
+</div>
+</html>
