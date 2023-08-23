@@ -1,5 +1,6 @@
 package com.hotel.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +16,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class RoomImgService {
-	private String roomImgLocation = "C:/hotel/room";
+//	private String roomImgLocation = "C:/hotel/room";
+	
+	@Value("${roomImgLocation}")
+	private String roomImgLocation;
 	private final RoomImgRepository roomImgRepository;
 	private final FileService fileService;
 	/*
