@@ -106,7 +106,7 @@ public class RoomController {
 		model.addAttribute("roomSearchDto", roomSearchDto);
 		model.addAttribute("maxPage", 5); //상품관리 페이지 하단에 보여줄 최대 페이지 번호
 		
-		return "/room/roomMng";
+		return "room/roomMng";
 	}
 	
 	@GetMapping(value = "rooms/detail/{roomId}")
@@ -115,7 +115,7 @@ public class RoomController {
 		model.addAttribute("room", roomFormDto);
 		model.addAttribute("reservationDto", new ReservationDto());
 		
-		return "/room/roomDetail";
+		return "room/roomDetail";
 	}
 	
 	//상품수정페이지보기
